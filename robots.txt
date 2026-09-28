@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+# TODO lancering: vervangen door "Allow: /" zodra de pagina live mag in Google

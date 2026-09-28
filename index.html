@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Werkbladen op maat voor professionals · Louis Culot</title>
+<meta name="description" content="Werkbladen op maat voor keukenbouwers, interieurarchitecten en aannemers. Opmeting, productie in eigen atelier in Puurs en plaatsing op uw planning.">
+<!-- TODO lancering: noindex verwijderen zodra alle claims door Culot bevestigd zijn -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://pro.culot.be/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_BE">
+<meta property="og:title" content="Louis Culot voor professionals">
+<meta property="og:description" content="Werkbladen op maat voor keukenbouwers, interieurarchitecten en aannemers.">
+<meta property="og:image" content="https://pro.culot.be/assets/img/og.jpg">
+<meta property="og:url" content="https://pro.culot.be/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" as="image" href="assets/img/hero.webp">
+<script>
+/* ============ CONFIG — enkel hier aanpassen ============ */
+window.LC_CONFIG = {
+  FORM_ENDPOINT: "PLAK_HIER_DE_APPS_SCRIPT_WEB_APP_URL", // eindigt op /exec
+  GA4_ID: "",            // bv. "G-XXXXXXXXXX" (zelfde property als culot.be)
+  ADS_ID: "",            // bv. "AW-123456789" (Google Ads-tag, niet het accountnummer)
+  ADS_LABEL_PROJECT: "", // conversielabel "B2B – offerteaanvraag"
+  ADS_LABEL_MEET: "",    // conversielabel "B2B – kennismaking"
+  MAX_UPLOAD_MB: 10
+};
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF8; --paper-2:#F0EEEA; --line:#DEDAD3; --ink:#171614; --ink-2:#4A4640; --muted:#7A746B;
+  --gold:#A57A1C; --gold-bright:#E7AF3B; --dark:#1B1A18; --dark-2:#26241F; --on-dark:#EEEBE5; --on-dark-2:#A9A39A;
+  --note:#FFF3B0; --note-ink:#4A3B00;
+  --serif:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --sans:"Hanken Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#151412; --paper-2:#1E1C19; --line:#34312C; --ink:#EEEBE5; --ink-2:#C9C3B9; --muted:#9A948A;
+  --gold:#E0AE4A; --dark:#0E0D0C; --dark-2:#1A1916; }}
+:root[data-theme="dark"]{
+  --paper:#151412; --paper-2:#1E1C19; --line:#34312C; --ink:#EEEBE5; --ink-2:#C9C3B9; --muted:#9A948A;
+  --gold:#E0AE4A; --dark:#0E0D0C; --dark-2:#1A1916; }
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px); scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.logo{height:26px;width:auto;color:var(--ink)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;margin:0}
+h2{font-size:clamp(32px,4.2vw,52px);line-height:1.08}
+h3{font-size:24px;line-height:1.2}
+p{margin:0 0 1em}
+.lede{font-size:clamp(18px,1.6vw,21px);color:var(--ink-2);max-width:34em}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:20px;height:68px}
+.tag{font-size:13px;color:var(--muted);border-left:1px solid var(--line);padding-left:16px}
+.top .spacer{flex:1}
+.top .tel{font-size:15px;text-decoration:none;color:var(--ink-2)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--sans);text-decoration:none;border:0;cursor:pointer;border-radius:2px;padding:16px 22px;transition:background .2s,color .2s}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{background:var(--gold);color:#fff}
+.btn-sm{padding:12px 16px;font-size:14px}
+.btn .arr{transition:transform .2s}
+.btn:hover .arr{transform:translateX(3px)}
+.textlink{font-weight:500;text-underline-offset:4px;text-decoration-thickness:1px;color:var(--ink-2)}
+.textlink:hover{color:var(--gold)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:calc(100svh - 68px)}
+.hero-copy{padding:64px 56px 64px max(28px,calc((100vw - 1240px)/2 + 28px));display:flex;flex-direction:column;justify-content:center}
+.hero h1{font-size:clamp(38px,4.3vw,62px);line-height:1.04;margin-bottom:28px;max-width:12em}
+.hero .lede{margin-bottom:36px}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:18px 26px}
+.micro{font-size:14px;color:var(--muted);margin-top:18px}
+.hero>*{min-width:0}
+.hero-img{position:relative;height:100%;overflow:hidden;background:var(--paper-2)}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero-img figcaption{position:absolute;left:0;bottom:0;right:0;padding:40px 24px 18px;font-size:13px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.55))}
+.facts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin-top:48px;padding-top:24px;gap:22px 32px;max-width:560px}
+.facts div{font-size:14px;color:var(--ink-2);line-height:1.4}
+.facts strong{display:block;font-family:var(--serif);font-weight:400;font-size:22px;color:var(--ink);margin-bottom:4px}
+
+/* Partners */
+.partners{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper-2)}
+.partners .wrap{display:flex;align-items:center;gap:36px;padding-top:26px;padding-bottom:26px;overflow-x:auto}
+.partners p{margin:0;font-size:14px;color:var(--muted);white-space:nowrap}
+.partners ul{display:flex;gap:34px;list-style:none;margin:0;padding:0}
+.partners li{font-family:var(--serif);font-size:21px;white-space:nowrap;color:var(--ink-2)}
+
+section{padding:112px 0}
+.grid>*,.seg-panel>*,.sec-head>*,.projects>*,.faq-grid>*,.quotes>*,.caps>*,.steps>*{min-width:0}
+.partners ul{flex:0 0 auto}
+body{overflow-x:clip}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:56px}
+.sec-head p{margin:0}
+
+/* Segment switcher */
+.seg-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:48px;overflow-x:auto}
+.seg-tabs button{font:500 17px var(--sans);background:none;border:0;color:var(--muted);padding:14px 0;margin-right:40px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.seg-tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--gold)}
+.seg-panel{display:grid;grid-template-columns:5fr 7fr;gap:64px}
+.seg-panel[hidden]{display:none}
+.seg-quote{font-family:var(--serif);font-size:clamp(26px,2.6vw,34px);line-height:1.2}
+.seg-quote small{display:block;font-family:var(--sans);font-size:14px;color:var(--muted);margin-top:18px}
+.pairs{display:grid;gap:0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:22px 0;border-top:1px solid var(--line)}
+.pair:last-child{border-bottom:1px solid var(--line)}
+.pair .q{color:var(--muted);font-size:16px}
+.pair .a{font-size:16px}
+.pair .a b{font-weight:600}
+.pairs-head{display:grid;grid-template-columns:1fr 1fr;gap:32px;font-size:13px;color:var(--muted);padding-bottom:10px}
+
+/* Client ownership */
+.own{background:var(--paper-2)}
+.own .grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.own img{aspect-ratio:1/1;object-fit:cover;width:100%}
+.own ul{list-style:none;padding:0;margin:32px 0 0}
+.own li{padding:16px 0 16px 34px;border-top:1px solid var(--line);position:relative}
+.own li::before{content:"";position:absolute;left:0;top:25px;width:16px;height:1px;background:var(--gold)}
+
+/* Process */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:0;counter-reset:s}
+.steps li{padding:28px 22px 0 0;border-top:1px solid var(--ink);counter-increment:s;position:relative}
+.steps li::before{content:counter(s);font-family:var(--serif);font-size:44px;line-height:1;color:var(--gold);display:block;margin-bottom:18px}
+.steps h3{font-size:20px;margin-bottom:10px}
+.steps p{font-size:15px;color:var(--ink-2);margin:0}
+.steps .who{display:block;font-size:13px;color:var(--muted);margin-top:12px}
+
+/* Atelier dark */
+.atelier{background:var(--dark);color:var(--on-dark);padding:0}
+.atelier .banner{width:100%;height:clamp(260px,38vw,520px);object-fit:cover;filter:saturate(.75)}
+.atelier .wrap{padding-top:96px;padding-bottom:112px}
+.atelier h2{color:#fff}
+.atelier .lede{color:var(--on-dark-2)}
+.caps{display:grid;grid-template-columns:repeat(3,1fr);gap:48px 40px;margin-top:64px}
+.caps h3{font-size:22px;color:#fff;margin-bottom:10px}
+.caps p{font-size:15px;color:var(--on-dark-2);margin:0}
+.mat-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:56px;padding-top:32px;border-top:1px solid #3A3731;align-items:center}
+.mat-row span{font-size:14px;color:var(--on-dark-2);margin-right:8px}
+.mat-row a{font-size:15px;color:var(--on-dark);text-decoration:none;border:1px solid #4A463E;padding:9px 16px;border-radius:40px}
+.mat-row a:hover{border-color:var(--gold-bright);color:var(--gold-bright)}
+
+/* Projects */
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.proj img{width:100%;aspect-ratio:4/5;object-fit:cover;margin-bottom:18px}
+.proj h3{font-size:22px;margin-bottom:6px}
+.proj dl{margin:0;font-size:14px;color:var(--ink-2);display:grid;grid-template-columns:auto 1fr;gap:2px 14px}
+.proj dt{color:var(--muted)}
+.proj dd{margin:0}
+.credit-note{margin-top:48px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.credit-note p{margin:0;max-width:52em}
+.credit-note strong{font-family:var(--serif);font-weight:400;font-size:24px;display:block}
+
+/* Testimonials */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+.quotes blockquote{margin:0}
+.quotes p{font-family:var(--serif);font-size:23px;line-height:1.3}
+.quotes footer{font-size:14px;color:var(--muted)}
+.quotes footer b{display:block;color:var(--ink);font-weight:600}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:4fr 8fr;gap:64px}
+details{border-top:1px solid var(--line)}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font-size:19px;font-weight:500;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:18px;font-family:var(--serif);font-size:28px;color:var(--gold);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details .ans{padding:0 40px 24px 0;color:var(--ink-2);max-width:44em}
+
+/* Form */
+.contact{background:var(--paper-2)}
+.contact .grid{display:grid;grid-template-columns:5fr 7fr;gap:72px}
+.direct{margin-top:40px;padding-top:28px;border-top:1px solid var(--line);font-size:15px}
+.direct b{display:block;font-family:var(--serif);font-weight:400;font-size:24px}
+.direct a{text-decoration:none}
+.form{background:var(--paper);padding:40px;border:1px solid var(--line)}
+.mode{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);margin-bottom:32px}
+.mode label{padding:16px 18px;cursor:pointer;font-size:15px;line-height:1.35;color:var(--muted)}
+.mode label b{display:block;color:var(--ink);font-weight:600;font-size:16px}
+.mode label,.chips label{position:relative}
+.mode input,.chips input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
+.mode label:has(input:checked){background:var(--ink);color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.mode label:has(input:checked) b{color:var(--paper)}
+.mode label:has(input:focus-visible){outline:2px solid var(--gold);outline-offset:-2px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:20px 22px}
+.f{display:flex;flex-direction:column;gap:7px}
+.f.full{grid-column:1/-1}
+.f label,.f .lbl{font-size:14px;font-weight:500}
+.f .opt{font-weight:400;color:var(--muted)}
+.f input,.f select,.f textarea{font:16px var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:13px 14px;width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--ink)}
+.f textarea{min-height:96px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{font-size:14px;font-weight:400;border:1px solid var(--line);padding:8px 14px;border-radius:40px;cursor:pointer}
+.chips label:has(input:checked){background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.drop{border:1px dashed var(--muted);padding:18px;font-size:14px;color:var(--muted);text-align:center;cursor:pointer}
+.only-project,.only-meet{display:contents}
+.form[data-mode="meet"] .only-project{display:none}
+.form[data-mode="project"] .only-meet{display:none}
+.submit-row{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:28px}
+.privacy{font-size:13px;color:var(--muted);margin:16px 0 0;max-width:46em}
+.done{display:none;text-align:left;padding:24px 0}
+.done h3{margin-bottom:12px}
+.form.sent .fields,.form.sent .mode,.form.sent .submit-row,.form.sent .privacy{display:none}
+.form.sent .done{display:block}
+
+footer.site{padding:48px 0 60px;font-size:14px;color:var(--muted)}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between}
+
+/* Sticky mobile CTA */
+.mcta{display:none}
+
+
+/* Consent */
+.consent{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:70;max-width:520px;background:var(--paper);color:var(--ink);border:1px solid var(--line);box-shadow:0 8px 30px rgba(0,0,0,.18);padding:20px 22px;font-size:14px;line-height:1.5}
+.consent[hidden]{display:none}
+.consent p{margin:0 0 14px}
+.consent .row{display:flex;gap:10px;flex-wrap:wrap}
+.consent .btn{padding:12px 16px;font-size:14px}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.form-error{display:none;color:#B3261E;font-size:14px;margin-top:14px}
+.form.error .form-error{display:block}
+.form.sending button[type=submit]{opacity:.6;pointer-events:none}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;max-height:none;min-height:0}
+  .hero-img{order:-1;height:52vh}
+  .hero-copy{padding:44px 28px 48px}
+  .facts{grid-template-columns:1fr 1fr}
+  .sec-head,.seg-panel,.own .grid,.faq-grid,.contact .grid{grid-template-columns:1fr;gap:36px}
+  .steps{grid-template-columns:1fr 1fr;gap:36px 24px}
+  .caps{grid-template-columns:1fr 1fr}
+  .projects{grid-template-columns:1fr}
+  .quotes{grid-template-columns:1fr;gap:36px}
+  section{padding:80px 0}
+  .top .tel,.tag{display:none}
+}
+@media (max-width:640px){
+  .consent{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .pair,.pairs-head{grid-template-columns:1fr;gap:6px}
+  .pairs-head{display:none}
+  .pair .q::before{content:"Uw vraag — ";}
+  .steps,.caps,.fields,.facts{grid-template-columns:1fr}
+  .form{padding:24px 18px}
+  .mode{grid-template-columns:1fr}
+  .top .btn{display:none}
+  .mcta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:var(--paper);border-top:1px solid var(--line)}
+  .mcta a{flex:1;justify-content:center}
+  .mcta .call{flex:0 0 auto;border:1px solid var(--line);color:var(--ink);background:var(--paper)}
+  footer.site{padding-bottom:110px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="https://www.culot.be/nl/" aria-label="Louis Culot home"><svg fill="currentColor" aria-label="Louis Culot" role="img" class="logo" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 521 139.85"><path d="M31.21,91l.42,4.81H1.79L2.2,91l3.85-.41c3.3-.28,4.68-1,4.68-2.62V16.36c0-1.65-.42-2.75-1.52-3.16L0,9.35.41,5.91,22,0V88.14c0,1.38.83,2.2,5.23,2.48ZM92.26,63.25c0,19-13.89,34.65-32.45,34.65s-30-14.43-30-32.59c0-18.42,14.44-33.13,32.59-33.13C80.3,32.18,92.26,45.79,92.26,63.25Zm-49.91-2.2c0,8.21,1.41,16.07,4.41,21.7L74.65,45.92A17.88,17.88,0,0,0,72.46,43a16.27,16.27,0,0,0-12-5.23C50.32,37.81,42.35,46.34,42.35,61.05Zm37.4,8c0-7.6-1.14-14.91-3.66-20.42L48.33,85.27A18.17,18.17,0,0,0,49.77,87a16,16,0,0,0,12,5.23C71.5,92.27,79.75,83.74,79.75,69ZM185.69,90.62c-4.4-.28-5.22-1.1-5.22-2.48v-56l-20.35,5.36L160,41.25l3.3.83c4.95,1.23,5.91,2.47,5.91,11.13V88c0,1.65-1.28,2.61-4.58,2.88L160,91c-.13,0-7.06,0-8.84-.72s-1.75-2.58-1.75-4.23V34.24H127l.55,4.81,5.37.41c4.4.42,5.22,1.1,5.22,2.48v40.7c-3.71,2.75-9.35,5.78-15.26,5.78-8.25,0-12.65-4.13-12.65-17.61l1.1-36.57H89.57L90,39.05l3.3.41c4.95.69,6,0,6,2.62l-.42,36.16c0,6.6,1.52,11.69,5.23,15.4a16.24,16.24,0,0,0,11.27,4.26c7.43,0,15-4,22-9.76h.69v7.7h52L189.68,91Zm31.52-32.18c-9.35-3.71-14.72-5.91-14.72-12.24,0-5.36,4.82-9.07,10.87-9.07a18.59,18.59,0,0,1,10.45,3.43L226.56,52h6.74l-.83-19.53-4.26,1.79a35.88,35.88,0,0,0-13.75-2.34c-14.3,0-22,9.35-22,18.43,0,11.82,9.07,15.81,18.15,19.39,7.83,3,15.12,5.63,15.12,12.1,0,6.87-7,11-12.51,11a19.34,19.34,0,0,1-11-3.85l-3.16-12.1h-6.88L193,95a53.81,53.81,0,0,0,18.56,2.88c15.4,0,24.06-9.62,24.06-19.93C235.63,66.28,226.14,62,217.21,58.44ZM299.15,88c-12.24,0-21.31-11.68-21.31-27.22,0-14.58,7.83-23.24,17.74-23.24a12.94,12.94,0,0,1,7.56,2.2V40c-1.51,6.88,2.06,12.79,7.29,12.79,3.3,0,7.7-1.51,7.7-7.42,0-6.6-6.88-13.2-19.53-13.2C281.27,32.18,266,46.61,266,67.1c0,17.33,11.41,30.8,27.64,30.8,10.86,0,19.94-5.63,25-15.67l-2.75-1.51A22.28,22.28,0,0,1,299.15,88Zm114.73,2.62c-4.4-.28-5.22-1.1-5.22-2.48V0L387.07,5.91l-.41,3.44,9.21,3.85c1.1.41,1.51,1.51,1.51,3.16V88c0,1.65-2,2.68-5.31,3l-3.9.08s-7.06,0-8.85-.72-1.75-2.58-1.75-4.23V34.24H355.15l.55,4.81,5.37.41c4.4.42,5.22,1.1,5.22,2.48v40.7c-3.71,2.75-9.35,5.78-15.26,5.78-8.25,0-12.65-4.13-12.65-17.61l1.1-36.57H319.12l.41,4.81s8,.41,8,3l-.41,36.16c0,6.6,1.51,11.69,5.23,15.4A16.21,16.21,0,0,0,343.6,97.9c7.43,0,15-4,22-9.76h.69v7.7h52L417.87,91Zm106.44-5.09A24.85,24.85,0,0,1,508.9,89c-7.29,0-12.1-3.44-11.82-13.48l1.1-34.38h15.9l1-6.87H498l.14-17.34-10.74,2.91-.21,14.43H475.9l-.14,6.87H486.9l-1,37.41c-.28,14,7.15,19.38,16.22,19.38,6.47,0,13.89-3.43,18.84-8.93ZM252.17,83.85a7,7,0,1,0,7,7A7,7,0,0,0,252.17,83.85Zm226.75-20.6c0,19-13.89,34.65-32.45,34.65s-30-14.43-30-32.59c0-18.42,14.44-33.13,32.59-33.13C467,32.18,478.92,45.79,478.92,63.25ZM429,61.05c0,8.21,1.41,16.07,4.41,21.7L461.3,45.92A17.83,17.83,0,0,0,459.12,43a16.29,16.29,0,0,0-12-5.23C437,37.81,429,46.34,429,61.05Zm37.4,8c0-7.6-1.14-14.91-3.67-20.42L435,85.27A16.81,16.81,0,0,0,436.43,87a16,16,0,0,0,12,5.23C458.16,92.27,466.41,83.74,466.41,69ZM71.2,139.52,64.57,128.1l6-7H67.69l-8.45,9.83v-9.83H56.92v18.44h2.32v-5.2L63,130l5.51,9.57Zm24.39,0v-2.14h-10V131h8.79v-2.18H85.58v-5.62h10v-2.13H83.27v18.44Zm25.77-6.76V121.08h-2.31v11.73c0,2.94-1.22,4.89-4.42,4.89s-4.42-1.95-4.42-4.89V121.08H107.9v11.68c0,4.6,2.6,7.09,6.73,7.09S121.36,137.36,121.36,132.76Zm27.8,6.76-6.63-11.42,6-7h-2.88l-8.45,9.83v-9.83h-2.32v18.44h2.32v-5.2l3.74-4.37,5.51,9.57Zm24.4,0v-2.14h-10V131h8.78v-2.18h-8.78v-5.62h10v-2.13H161.23v18.44Zm26.44,0V121.08h-2.24V136l-9-14.87h-2.6v18.44h2.24V124.7l9.05,14.82Zm33.06-18.44H231l-2.93,15-4.27-14.74h-2.08l-4.26,14.77-2.94-15h-2.16L216,139.52h2.45l4.26-14.85,4.21,14.85h2.47Zm24.65,18.44v-2.14h-10V131h8.79v-2.18H247.7v-5.62h10v-2.13H245.39v18.44Zm26,0L280,131.4a5.22,5.22,0,0,0,2.21-1.3,4.93,4.93,0,0,0,1.4-3.64,5.23,5.23,0,0,0-1.45-3.74,6.22,6.22,0,0,0-4.68-1.64h-7.23v18.44h2.31v-7.67h5.1l3.48,7.67Zm-2.47-13.06c0,2.34-1.56,3.23-3.74,3.23h-4.92v-6.48h4.92C279.68,123.21,281.24,124.12,281.24,126.46Zm29.39,13.06L304,128.1l6-7h-2.89l-8.45,9.83v-9.83h-2.31v18.44h2.31v-5.2l3.74-4.37,5.52,9.57Zm25.54-5.15a4.65,4.65,0,0,0-3.06-4.45,4.22,4.22,0,0,0,2.65-4.08,4.32,4.32,0,0,0-1.2-3.07,6.17,6.17,0,0,0-4.5-1.69h-7.35v18.44h7.43a6.41,6.41,0,0,0,4.63-1.69A4.89,4.89,0,0,0,336.17,134.37ZM333.39,126c0,2.06-1.33,2.91-3.25,2.91H325v-5.79h5.09C331.83,123.14,333.39,124.1,333.39,126Zm.42,8.19c0,2.19-1.64,3.17-3.67,3.17H325V131h5.22A3.32,3.32,0,0,1,333.81,134.21Zm26.35,5.31v-2.16h-8.87V121.08H349v18.44Zm26.64,0-6.53-18.44h-2.7l-6.5,18.44h2.34l1.48-4.37h8l1.5,4.37ZM382.14,133h-6.52l3.25-9.56Zm30.29-2.67c0-2.66-.34-5.41-2.36-7.34a7,7,0,0,0-4.84-1.87h-6.42v18.44h6.42a6.92,6.92,0,0,0,4.84-1.85C412.07,135.75,412.43,132.94,412.43,130.29Zm-2.34,0c0,2-.13,4.34-1.58,5.82a4.63,4.63,0,0,1-3.28,1.27h-4.11V123.21h4.11a4.64,4.64,0,0,1,3.28,1.28C410,126,410.09,128.31,410.09,130.29Zm27.55,9.23v-2.14h-10V131h8.79v-2.18h-8.79v-5.62h10v-2.13H425.32v18.44Zm26.44,0V121.08h-2.23V136l-9.05-14.87h-2.6v18.44h2.23V124.7l9.05,14.82Z"/></svg></a>
+    <span class="tag">Voor professionals</span>
+    <span class="spacer"></span>
+    <a class="tel" href="tel:+3238607070">+32 3 860 70 70</a>
+    <a class="btn btn-primary btn-sm" href="#contact">Bespreek uw project</a>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" style="padding:0">
+  <div class="hero-copy">
+    <h1>Werkbladen op maat voor keukenbouwers, architecten en aannemers.</h1>
+    <p class="lede">Wij meten op, maken alles in ons eigen atelier in Puurs en plaatsen op de dag die u met uw klant afsprak. U houdt de regie, wij leveren de afwerking waar uw naam op staat.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#contact" data-mode="project">Stuur uw plannen voor een offerte <span class="arr">→</span></a>
+      <a class="textlink" href="#contact" data-mode="meet">of plan een kennismaking in Puurs</a>
+    </div>
+    <p class="micro">Antwoord binnen 2 werkdagen · rechtstreeks van een projectverantwoordelijke</p>
+    <div class="facts">
+      <div><strong>4 generaties</strong>Familiebedrijf, al meer dan 130 jaar in steen</div>
+      <div><strong>45 vakmensen</strong>Opmeting, productie en plaatsing in eigen team</div>
+      <div><strong>Eigen atelier</strong>Waterjet en CNC voor haarfijne bewerkingen</div>
+      <div><strong>Dekton-expert</strong>Bekroond als beste Dektonverwerker van Europa</div>
+    </div>
+  </div>
+  <figure class="hero-img" style="margin:0">
+    <img src="assets/img/hero.webp" fetchpriority="high" alt="Keukenwerkblad in Taj Mahal kwartsiet met messing kraan">
+    <figcaption>Project S · Taj Mahal kwartsiet · ontwerp Fierens</figcaption>
+  </figure>
+</section>
+
+<!-- PARTNERS -->
+<div class="partners">
+  <div class="wrap">
+    <p>Wij werken samen met</p>
+    <ul>
+      <li>Fierens</li><li>Bulthaup Mechelen</li><li>Seastone</li><li>KW Keukens</li><li>Gyma</li><li>Elft Interieur</li><li>Design By Droika</li><li>Flexinstall</li><li>Thonon</li>
+    </ul>
+  </div>
+</div>
+<div class="wrap">
+
+<!-- SEGMENTS -->
+<section id="voor-wie">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Elk vak heeft zijn eigen zorgen bij een werkblad.</h2>
+      <p class="lede">Kies uw profiel. Dan ziet u meteen hoe we met u samenwerken.</p>
+    </div>
+    <div class="seg-tabs" role="tablist" aria-label="Kies uw profiel">
+      <button role="tab" aria-selected="true" aria-controls="p-kb" id="t-kb">Keukenbouwer</button>
+      <button role="tab" aria-selected="false" aria-controls="p-ia" id="t-ia" tabindex="-1">Interieurarchitect</button>
+      <button role="tab" aria-selected="false" aria-controls="p-aa" id="t-aa" tabindex="-1">Aannemer &amp; bouwbedrijf</button>
+    </div>
+
+    <div class="seg-panel" role="tabpanel" id="p-kb" aria-labelledby="t-kb">
+      <div class="seg-quote">De kasten staan. Uw klant wacht. Alles hangt nu aan het werkblad.
+        <small>Het werkblad komt als laatste, maar het is wat uw klant het langst onthoudt.</small></div>
+      <div>
+        <div class="pairs-head"><span>Uw vraag</span><span>Onze aanpak</span></div>
+        <div class="pairs">
+          <div class="pair"><div class="q">Komt de opmeting op tijd, nu de kasten geplaatst zijn?</div><div class="a"><b>Opmeting ingepland op uw timing.</b> We stemmen af op uw montageplanning, niet omgekeerd.</div></div>
+          <div class="pair"><div class="q">Wordt de plaatsingsdatum gehaald?</div><div class="a"><b>Een vaste plaatsingsdatum</b> na goedkeuring van de werktekening, die u aan uw klant kan doorgeven.</div></div>
+          <div class="pair"><div class="q">Klopt de afwerking tot in de details?</div><div class="a"><b>Alles in eigen atelier.</b> Uitsparingen voor kookplaat, spoelbak en stopcontacten tot op de millimeter.</div></div>
+          <div class="pair"><div class="q">Wie belt u als er iets misloopt?</div><div class="a"><b>Eén vast aanspreekpunt</b> van offerte tot nazorg. Geen doorverbinden.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seg-panel" role="tabpanel" id="p-ia" aria-labelledby="t-ia" hidden>
+      <div class="seg-quote">Uw ontwerp staat of valt met hoe de steen wordt uitgevoerd.
+        <small>Aderverloop, randdikte, overgangen: wat op plan klopt, moet in de ruimte blijven kloppen.</small></div>
+      <div>
+        <div class="pairs-head"><span>Uw vraag</span><span>Onze aanpak</span></div>
+        <div class="pairs">
+          <div class="pair"><div class="q">Is dit detail technisch haalbaar in dit materiaal?</div><div class="a"><b>Technisch advies in de ontwerpfase,</b> zodat u geen concessies moet doen tijdens de uitvoering.</div></div>
+          <div class="pair"><div class="q">Loopt de tekening door zoals ik ze voor ogen had?</div><div class="a"><b>U of uw klant selecteert de plaat.</b> Bookmatch en aderverloop leggen we vooraf samen vast.</div></div>
+          <div class="pair"><div class="q">Kan het materiaal doorlopen buiten de keuken?</div><div class="a"><b>Eén steen door heel de woning:</b> wanden, douche, lavabotabletten, haard en meubelwerk.</div></div>
+          <div class="pair"><div class="q">Wordt mijn ontwerp ook zo gecommuniceerd?</div><div class="a"><b>U wordt steeds vermeld</b> wanneer we het project op onze kanalen tonen.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seg-panel" role="tabpanel" id="p-aa" aria-labelledby="t-aa" hidden>
+      <div class="seg-quote">Meerdere woningen, één werfplanning, geen ruimte voor uitstel.
+        <small>Op een werf is een leverancier pas goed als u er niet over hoeft na te denken.</small></div>
+      <div>
+        <div class="pairs-head"><span>Uw vraag</span><span>Onze aanpak</span></div>
+        <div class="pairs">
+          <div class="pair"><div class="q">Kunnen jullie het volume aan?</div><div class="a"><b>45 vakmensen en een eigen productielijn</b> in Puurs, geen onderaanneming.</div></div>
+          <div class="pair"><div class="q">Krijg ik een offerte die past in mijn lastenboek?</div><div class="a"><b>Offerte per lot of per woning,</b> met heldere posten voor materiaal, bewerking en plaatsing.</div></div>
+          <div class="pair"><div class="q">Volgen jullie mijn werfplanning?</div><div class="a"><b>Opmeting en plaatsing per fase</b> ingepland volgens uw planning.</div></div>
+          <div class="pair"><div class="q">Is de administratie in orde?</div><div class="a"><b>Snel en correct:</b> facturatie en nazorg zonder opvolging van uw kant.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT OWNERSHIP -->
+<section class="own">
+  <div class="wrap grid">
+    <img src="assets/img/showroom.webp" loading="lazy" decoding="async" alt="Showroom Louis Culot in Puurs">
+    <div>
+      <h2>Uw klant blijft uw klant.</h2>
+      <p class="lede" style="margin-top:24px">Onze showroom in Puurs is 500 m² aan materialen. Stuur uw klant gerust langs om te kiezen. We vertrekken van uw ontwerp en uw briefing.</p>
+      <ul>
+        <li>We ontvangen uw klant op afspraak, met uw plannen als vertrekpunt</li>
+        <li>Offerte en afspraken lopen via u, tenzij u het anders wil</li>
+        <li>U krijgt na elk showroombezoek een verslag van de keuzes</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="werkwijze">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Van plan tot plaatsing, zonder verrassingen.</h2>
+      <p class="lede">Bij elke stap weet u wat er gebeurt, wie het doet en wanneer.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Plannen doorsturen</h3><p>Stuur uw plan of werktekening. U krijgt een offerte met heldere posten.</p><span class="who">U · wij</span></li>
+      <li><h3>Materiaal kiezen</h3><p>In de showroom of het atelier, samen met u of rechtstreeks met uw klant.</p><span class="who">U of uw klant</span></li>
+      <li><h3>Opmeting</h3><p>Op de werf, zodra de kasten staan. Ingepland volgens uw montage.</p><span class="who">Wij</span></li>
+      <li><h3>Werktekening</h3><p>Elke uitsparing en naad op plan, ter goedkeuring voor productie start.</p><span class="who">U keurt goed</span></li>
+      <li><h3>Productie</h3><p>In ons atelier in Puurs, met waterjet en CNC. Niets wordt uitbesteed.</p><span class="who">Wij</span></li>
+      <li><h3>Plaatsing &amp; nazorg</h3><p>Door ons eigen team, op de afgesproken dag. Nazorg via hetzelfde aanspreekpunt.</p><span class="who">Wij</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ATELIER -->
+<section class="atelier">
+  <img class="banner" src="assets/img/atelier.webp" loading="lazy" decoding="async" alt="Productieatelier van Louis Culot in Puurs">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Alles onder één dak in Puurs.</h2>
+      <p class="lede">Geen onderaanneming: elk werkblad wordt hier gezaagd, bewerkt en afgewerkt. Daarom klopt de afwerking, en daarom houdt de planning.</p>
+    </div>
+    <div class="caps">
+      <div><h3>Bookmatch &amp; aderverloop</h3><p>Platen in spiegelbeeld of met doorlopende tekening over eiland, wand en achterwand.</p></div>
+      <div><h3>Geïntegreerde spoelbakken</h3><p>Spoelbakken en lavabo's uit hetzelfde materiaal, zonder zichtbare overgang.</p></div>
+      <div><h3>Uitsparingen op de millimeter</h3><p>Kookplaten, kranen, stopcontacten: de tekening van de steen loopt door.</p></div>
+      <div><h3>Wand, douche en haard</h3><p>Verticale bekleding, douchewanden, leggers en haardaccenten in hetzelfde blad.</p></div>
+      <div><h3>Meubelwerk in steen</h3><p>Tafels, salontafels, ontbijtnissen en maatwerk lavabotabletten.</p></div>
+      <div><h3>Harde materialen</h3><p>Dekton, keramiek en kwartsiet vragen specifieke machines. Die staan hier.</p></div>
+    </div>
+    <div class="mat-row"><span>Materialen</span>
+      <a href="https://www.culot.be/nl/keukenwerkbladen/natuursteen/">Natuursteen</a>
+      <a href="https://www.culot.be/nl/keukenwerkbladen/dekton/">Dekton</a>
+      <a href="https://www.culot.be/nl/keukenwerkbladen/keramiek/">Keramiek</a>
+      <a href="https://www.culot.be/nl/keukenwerkbladen/composiet/">Composiet</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="realisaties">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Projecten die we met partners realiseerden.</h2>
+      <p class="lede">Telkens met de naam van wie het ontwierp.</p>
+    </div>
+    <div class="projects">
+      <article class="proj">
+        <img src="assets/img/project-s.webp" loading="lazy" decoding="async" alt="Keuken met werkbladen in Taj Mahal kwartsiet">
+        <h3>Project S</h3>
+        <dl><dt>Ontwerp</dt><dd>Fierens</dd><dt>Materiaal</dt><dd>Taj Mahal kwartsiet, Travertino Rosso Persiano</dd><dt>Toepassing</dt><dd>Keuken, haard, badkamer</dd></dl>
+      </article>
+      <article class="proj">
+        <img src="assets/img/project-cc.webp" loading="lazy" decoding="async" alt="Keuken in Bianco Statuarietto">
+        <h3>Project CC</h3>
+        <dl><dt>Architect</dt><dd>Katrien Van Biervliet</dd><dt>Materiaal</dt><dd>Bianco Statuarietto, bouchardé en verzoet</dd><dt>Toepassing</dt><dd>Keuken, wand, badkamer</dd></dl>
+      </article>
+      <article class="proj">
+        <img src="assets/img/project-av.webp" loading="lazy" decoding="async" alt="Leefruimte met Neolith Calacatta">
+        <h3>Project AV</h3>
+        <dl><dt>Architect</dt><dd>Filip Deslee</dd><dt>Materiaal</dt><dd>Neolith Calacatta Poli, bookmatch</dd><dt>Toepassing</dt><dd>Tafel, leefruimte</dd></dl>
+      </article>
+    </div>
+    <div class="credit-note">
+      <strong>Uw werk, ook op onze kanalen.</strong>
+      <p>We tonen realisaties wekelijks op Instagram, Facebook en Pinterest, en vermelden daarbij altijd de ontwerper, architect en fotograaf. Samenwerken met ons betekent ook zichtbaarheid voor uw eigen projecten.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-bottom:48px">Wat partners zeggen.</h2>
+    <div class="quotes">
+      <blockquote><p>"Van opmeting tot plaatsing: het team gaat voor een totale ontzorging. Ze zijn enorm betrouwbaar en maken al hun beloftes waar."</p><footer><b>Koen Fierens</b>Zaakvoerder, Fierens</footer></blockquote>
+      <blockquote><p>"We delen dezelfde normen: service en tevredenheid boven alles. Stelt zich morgen een probleem, dan wordt het meteen opgelost."</p><footer><b>Bart Spiessens</b>Zaakvoerder, KW Keukens</footer></blockquote>
+      <blockquote><p>"Een hoge afwerkingsgraad. Technisch enorm sterk, ze denken mee en zijn oplossingsgericht. Zorgeloos samenwerken."</p><footer><b>Patrick Thonon</b>Zaakvoerder, Thonon</footer></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding-top:0">
+  <div class="wrap faq-grid">
+    <div>
+      <h2>Vragen die we vaak krijgen.</h2>
+      <p class="lede" style="margin-top:20px">Staat uw vraag er niet bij? Bel ons op <a href="tel:+3238607070">+32 3 860 70 70</a>.</p>
+    </div>
+    <div>
+      <details><summary>Werken jullie met voorwaarden voor vaste partners?</summary><div class="ans">Ja. Voor keukenbouwers, interieurbouwers en aannemers die regelmatig met ons werken, bespreken we voorwaarden op maat van uw volume. Dat bekijken we graag tijdens een kennismaking.</div></details>
+      <details><summary>Hoe lang duurt het van opmeting tot plaatsing?</summary><div class="ans">Dat hangt af van het materiaal en de complexiteit. Na goedkeuring van de werktekening krijgt u een vaste plaatsingsdatum. <em>[gemiddelde doorlooptijd in te vullen]</em></div></details>
+      <details><summary>In welke regio plaatsen jullie?</summary><div class="ans">We werken voor projecten in heel België, vanuit ons atelier in Puurs. <em>[te bevestigen: ook Nederland / Luxemburg?]</em></div></details>
+      <details><summary>Kan mijn klant zelf naar de showroom om te kiezen?</summary><div class="ans">Zeker. In onze showroom van 500 m² ziet en voelt uw klant de materialen en afwerkingen. We werken daarbij vanuit uw ontwerp en houden u op de hoogte van de keuzes.</div></details>
+      <details><summary>Wie is mijn aanspreekpunt?</summary><div class="ans">U krijgt één vaste contactpersoon die uw project van offerte tot nazorg opvolgt.</div></details>
+      <details><summary>Wat als er na plaatsing iets is?</summary><div class="ans">Nazorg loopt via hetzelfde aanspreekpunt en ons eigen plaatsingsteam. Voor Dekton en Silestone registreren we bovendien de verlengde fabrieksgarantie.</div></details>
+      <details><summary>Kan ik stalen krijgen voor mijn eigen toonzaal?</summary><div class="ans">Ja, voor partners stellen we een stalenset samen van de materialen die u het vaakst voorstelt. Vraag ernaar via het formulier.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap grid">
+    <div>
+      <h2>Laten we uw volgende project bespreken.</h2>
+      <p class="lede" style="margin-top:24px">Heeft u al plannen, stuur ze mee voor een offerte. Wil u eerst kennismaken, dan plannen we een gesprek in Puurs, bij u of telefonisch.</p>
+      <div class="direct">
+        <b>Liever meteen bellen?</b>
+        <a href="tel:+3238607070">+32 3 860 70 70</a> · <a href="mailto:info@culot.be">info@culot.be</a><br>
+        <span style="color:var(--muted)">Schoonmansveld 7, Industriezone Puurs 550, 2870 Puurs-Sint-Amands</span>
+      </div>
+    </div>
+
+    <form class="form" id="form" data-mode="project" novalidate>
+      <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <div class="mode" role="radiogroup" aria-label="Waarvoor neemt u contact op?">
+        <label><input type="radio" name="mode" value="project" checked><b>Ik heb een concreet project</b>Offerte op basis van plannen</label>
+        <label><input type="radio" name="mode" value="meet"><b>Ik wil eerst kennismaken</b>Gesprek over een samenwerking</label>
+      </div>
+      <div class="fields">
+        <div class="f"><label for="bedrijf">Bedrijfsnaam</label><input id="bedrijf" name="bedrijf" autocomplete="organization" required></div>
+        <div class="f"><label for="type">Uw activiteit</label>
+          <select id="type" name="type" required><option value="">Kies…</option><option>Keukenbouwer / keukenzaak</option><option>Interieurarchitect / ontwerper</option><option>Interieurbouwer / schrijnwerker</option><option>Aannemer / bouwbedrijf</option><option>Projectontwikkelaar</option><option>Andere</option></select></div>
+        <div class="f"><label for="naam">Naam</label><input id="naam" name="naam" autocomplete="name" required></div>
+        <div class="f"><label for="tel">Telefoon</label><input id="tel" name="tel" type="tel" autocomplete="tel" required></div>
+        <div class="f full"><label for="mail">E-mail</label><input id="mail" name="mail" type="email" autocomplete="email" required></div>
+
+        <div class="only-project">
+          <div class="f"><label for="pc">Postcode van het project <span class="opt">(optioneel)</span></label><input id="pc" name="pc" inputmode="numeric"></div>
+          <div class="f"><label for="timing">Gewenste plaatsing <span class="opt">(optioneel)</span></label>
+            <select id="timing" name="timing"><option value="">Nog niet bepaald</option><option>Binnen 1 maand</option><option>1 tot 3 maanden</option><option>Meer dan 3 maanden</option></select></div>
+          <div class="f full"><span class="lbl">Materiaal <span class="opt">(optioneel)</span></span>
+            <div class="chips"><label><input type="checkbox" name="mat" value="natuursteen">Natuursteen</label><label><input type="checkbox" name="mat" value="dekton">Dekton</label><label><input type="checkbox" name="mat" value="keramiek">Keramiek</label><label><input type="checkbox" name="mat" value="composiet">Composiet</label><label><input type="checkbox" name="mat" value="advies">Nog te kiezen</label></div></div>
+          <div class="f full"><span class="lbl">Plannen <span class="opt">(optioneel · pdf, dwg, jpg)</span></span><label class="drop" for="file">Sleep uw plannen hierheen of klik om te uploaden<input id="file" name="plannen" type="file" multiple hidden accept=".pdf,.dwg,.dxf,.jpg,.jpeg,.png"></label></div>
+        </div>
+        <div class="only-meet">
+          <div class="f full"><span class="lbl">Hoe maakt u liefst kennis?</span>
+            <div class="chips"><label><input type="radio" name="how" value="showroom" checked>Showroom &amp; atelier in Puurs</label><label><input type="radio" name="how" value="bij-u">Bij u op kantoor</label><label><input type="radio" name="how" value="tel">Telefonisch</label></div></div>
+        </div>
+        <div class="f full"><label for="msg">Iets dat we moeten weten? <span class="opt">(optioneel)</span></label><textarea id="msg" name="msg"></textarea></div>
+      </div>
+      <div class="submit-row">
+        <button class="btn btn-primary" type="submit"><span id="submitLabel">Vraag een offerte aan</span> <span class="arr">→</span></button>
+        <span class="micro" style="margin:0">Antwoord binnen 2 werkdagen</span>
+      </div>
+      <p class="form-error" role="alert">Er liep iets mis bij het versturen. Probeer opnieuw of bel ons op +32 3 860 70 70.</p>
+      <p class="privacy">We gebruiken uw gegevens enkel om uw aanvraag te beantwoorden. Meer in onze <a href="https://www.culot.be/nl/privacy-policy/">privacyverklaring</a>. <a href="#" id="cookieSettings">Cookie-instellingen</a></p>
+      <div class="done" role="status"><h3>Bedankt, we hebben uw aanvraag.</h3><p>Een projectverantwoordelijke neemt binnen 2 werkdagen contact met u op. Dringend? Bel <a href="tel:+3238607070">+32 3 860 70 70</a>.</p></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© 2026 Louis Culot · BE 0430 638 428</span>
+    <span><a href="https://www.culot.be/nl/">Voor particulieren</a> · <a href="https://www.culot.be/nl/algemene-voorwaarden/">Algemene voorwaarden</a> · <a href="https://www.culot.be/nl/privacy-policy/">Privacy</a></span>
+  </div>
+</footer>
+
+<div class="mcta">
+  <a class="btn btn-primary" href="#contact">Bespreek uw project</a>
+  <a class="btn call" href="tel:+3238607070" aria-label="Bel Louis Culot">Bel</a>
+</div>
+
+
+<div class="consent" id="consent" hidden role="dialog" aria-live="polite" aria-label="Cookies">
+  <p>We gebruiken analytische en marketingcookies om te meten hoe deze pagina gebruikt wordt en om onze advertenties te verbeteren. Functionele cookies zijn altijd actief. <a href="https://www.culot.be/nl/cookies/">Meer info</a></p>
+  <div class="row"><button class="btn btn-primary" id="cAccept">Alles accepteren</button><button class="btn btn-ghost" id="cDeny">Weigeren</button></div>
+</div>
+
+<script>
+(function(){
+  var C=window.LC_CONFIG||{};
+
+  /* ---------- Consent (basic mode: geen tags vóór toestemming) ---------- */
+  var KEY='lc_consent_v1', loaded=false;
+  function store(v){try{localStorage.setItem(KEY,v)}catch(e){}}
+  function read(){try{return localStorage.getItem(KEY)}catch(e){return null}}
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments)}
+  window.gtag=gtag;
+  gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied'});
+  function loadTags(){
+    if(loaded||!(C.GA4_ID||C.ADS_ID))return; loaded=true;
+    gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});
+    var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+(C.GA4_ID||C.ADS_ID);document.head.appendChild(s);
+    gtag('js',new Date());
+    if(C.GA4_ID)gtag('config',C.GA4_ID);
+    if(C.ADS_ID)gtag('config',C.ADS_ID);
+  }
+  var banner=document.getElementById('consent');
+  var choice=read();
+  if(choice==='granted')loadTags(); else if(!choice) banner.hidden=false;
+  document.getElementById('cAccept').onclick=function(){store('granted');banner.hidden=true;loadTags();};
+  document.getElementById('cDeny').onclick=function(){store('denied');banner.hidden=true;};
+  document.getElementById('cookieSettings').onclick=function(e){e.preventDefault();banner.hidden=false;};
+  function track(name,params){ if(loaded) gtag('event',name,params||{}); }
+
+  /* ---------- Attributie (UTM / gclid) ---------- */
+  var qs=new URLSearchParams(location.search), attr={};
+  ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid'].forEach(function(k){ if(qs.get(k)) attr[k]=qs.get(k); });
+  try{ if(Object.keys(attr).length) sessionStorage.setItem('lc_attr',JSON.stringify(attr)); else attr=JSON.parse(sessionStorage.getItem('lc_attr')||'{}'); }catch(e){}
+
+  /* ---------- Tabs ---------- */
+  var tabs=[].slice.call(document.querySelectorAll('.seg-tabs [role=tab]')), segment='Keukenbouwer';
+  function select(t,user){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});
+    segment=t.textContent.trim(); if(user) track('segment_select',{segment:segment});}
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(t,true)});
+    t.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){var n=tabs[(i+d+tabs.length)%tabs.length];select(n,true);n.focus();}});
+  });
+
+  /* ---------- Formulier ---------- */
+  var form=document.getElementById('form'),label=document.getElementById('submitLabel'),started=Date.now(),begun=false;
+  function setMode(m){form.dataset.mode=m;label.textContent=m==='meet'?'Plan een kennismaking':'Vraag een offerte aan';var r=form.querySelector('input[name=mode][value='+m+']');if(r)r.checked=true;}
+  form.querySelectorAll('input[name=mode]').forEach(function(r){r.addEventListener('change',function(){setMode(r.value)})});
+  document.querySelectorAll('a[data-mode]').forEach(function(a){a.addEventListener('click',function(){setMode(a.dataset.mode);track('cta_click',{cta:a.dataset.mode})})});
+  form.addEventListener('focusin',function(){ if(!begun){begun=true;track('form_start',{lead_type:form.dataset.mode});} });
+
+  var file=document.getElementById('file'), dropTxt=file.parentNode.firstChild;
+  file.addEventListener('change',function(){var n=file.files.length;dropTxt.textContent=n?n+' bestand(en) geselecteerd ':'Sleep uw plannen hierheen of klik om te uploaden';});
+
+  function readFile(f){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res({name:f.name,type:f.type||'application/octet-stream',data:String(r.result).split(',')[1]})};r.onerror=rej;r.readAsDataURL(f);});}
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); form.classList.remove('error');
+    var req=[].slice.call(form.querySelectorAll('[required]'));
+    req.forEach(function(f){f.style.borderColor=''});
+    var bad=req.filter(function(f){return !f.value.trim()||(f.type==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.value.trim()))});
+    if(bad.length){bad.forEach(function(f){f.style.borderColor='#B3261E'});bad[0].focus();return;}
+    if(form.website.value) return; // honeypot
+    var mode=form.dataset.mode, files=mode==='project'?[].slice.call(file.files):[];
+    var total=files.reduce(function(s,f){return s+f.size},0);
+    if(total>(C.MAX_UPLOAD_MB||10)*1048576){alert('De bestanden zijn samen groter dan '+(C.MAX_UPLOAD_MB||10)+' MB. Stuur ze gerust achteraf per mail.');return;}
+    var fd=new FormData(form), data={
+      lead_type: mode==='meet'?'Kennismaking':'Offerte',
+      bedrijf:fd.get('bedrijf'), type:fd.get('type'), naam:fd.get('naam'), tel:fd.get('tel'), mail:fd.get('mail'),
+      postcode: mode==='project'?fd.get('pc'):'', timing: mode==='project'?fd.get('timing'):'',
+      materiaal: mode==='project'?fd.getAll('mat').join(', '):'', kennismaking: mode==='meet'?fd.get('how'):'',
+      bericht:fd.get('msg'), segment_tab:segment, pagina:location.href.split('?')[0], referrer:document.referrer,
+      invultijd_sec:Math.round((Date.now()-started)/1000), attributie:attr
+    };
+    form.classList.add('sending');
+    Promise.all(files.map(readFile)).then(function(f){ data.bestanden=f;
+      return fetch(C.FORM_ENDPOINT,{method:'POST',body:JSON.stringify(data)}); // text/plain: geen CORS-preflight
+    }).then(function(r){return r.json()}).then(function(res){
+      if(!res||!res.ok) throw new Error(res&&res.error||'fout');
+      form.classList.remove('sending'); form.classList.add('sent');
+      var d=form.querySelector('.done'); d.setAttribute('tabindex','-1'); d.focus();
+      track('generate_lead',{lead_type:data.lead_type,bedrijfstype:data.type,segment:segment});
+      var lbl=mode==='meet'?C.ADS_LABEL_MEET:C.ADS_LABEL_PROJECT;
+      if(C.ADS_ID&&lbl) track('conversion',{send_to:C.ADS_ID+'/'+lbl});
+    }).catch(function(){ form.classList.remove('sending'); form.classList.add('error'); });
+  });
+})();
+</script>
+</body>
+</html>
