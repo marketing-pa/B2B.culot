@@ -1,9 +1,9 @@
-# Louis Culot · B2B-landingspagina (pro.culot.be)
+# Louis Culot · B2B-landingspagina (b2b.culot.be)
 
 Statische pagina op **GitHub Pages**. Leads gaan van het formulier naar een **Google Apps Script**, dat ze in een **Google Sheet** zet, de geüploade plannen in **Google Drive** bewaart en daarna **Make** aanroept. Make stuurt de mail (voorlopig naar davy@pro-active.be).
 
 ```
-Formulier (pro.culot.be)
+Formulier (b2b.culot.be)
    └─► Apps Script Web App ──► Google Sheet "Leads"  (+ plannen in Drive-map)
                           └──► Make-webhook ──► e-mail naar Pro Active / later Culot
                           └──► (fallback) rechtstreekse mail als Make niet reageert
@@ -15,12 +15,12 @@ Formulier (pro.culot.be)
 |---|---|
 | `index.html` | De pagina. Alle instellingen staan bovenaan in `window.LC_CONFIG`. |
 | `assets/` | Beelden (webp + jpg-fallback), favicon, OG-beeld |
-| `CNAME` | Het custom domein voor GitHub Pages (`pro.culot.be`) |
+| `CNAME` | Het custom domein voor GitHub Pages (`b2b.culot.be`) |
 | `robots.txt` | Staat voorlopig op *disallow*. Aanpassen bij lancering. |
 | `404.html` | Foutpagina |
 | `apps-script/Code.gs` | Backend. Hoort **niet** online; dit is enkel de broncode die je in Apps Script plakt. |
 
-> Het subdomein `pro.culot.be` is een voorstel. Kies je iets anders (bv. `partners.culot.be`), pas dan `CNAME`, de canonical en de OG-tags in `index.html` en de DNS-aanvraag hieronder aan.
+> Wijzig je het subdomein, pas dan `CNAME`, de canonical en de OG-tags in `index.html`, de DNS-aanvraag hieronder en de mailtekst in Make aan.
 
 ---
 
@@ -55,7 +55,7 @@ Formulier (pro.culot.be)
 - **Inhoud** (HTML):
 
 ```
-Nieuwe B2B-aanvraag via pro.culot.be — {{lead_id}}
+Nieuwe B2B-aanvraag via b2b.culot.be — {{lead_id}}
 
 Type:        {{lead_type}}
 Bedrijf:     {{bedrijf}} · {{type}}
@@ -74,7 +74,7 @@ Bron: {{attributie.utm_source}} / {{attributie.utm_medium}} / {{attributie.utm_c
 
 **2e.** Zet het scenario op **Immediately** (webhook) en activeer het.
 
-> Gebouwd op 28/09/2026: scenario "Culot B2B – leads pro.culot.be → mail" (Make, team My Team), webhook "Culot B2B – leads", verstuurt via de Gmail-connectie van davy@pro-active.be.
+> Gebouwd op 28/09/2026: scenario "Culot B2B – leads b2b.culot.be → mail" (Make, team My Team), webhook "Culot B2B – leads", verstuurt via de Gmail-connectie van davy@pro-active.be.
 
 Waarom niet "Google Sheets → Watch new rows"? Die module pollt. Op een lager Make-plan betekent dat pas na 15 minuten een mail. De webhook is direct, en de Sheet blijft de bron van waarheid. Mislukt de webhook, dan zet Apps Script `NEE – fallback mail` in de kolom *Make verstuurd* en mailt het rechtstreeks naar `ALERT_EMAIL`. Er gaat dus geen lead verloren.
 
@@ -82,26 +82,26 @@ Waarom niet "Google Sheets → Watch new rows"? Die module pollt. Op een lager M
 
 1. Push deze repo (inhoud van deze map in de root).
 2. **Settings → Pages → Source:** *Deploy from a branch* → `main` / `/ (root)`.
-3. **Custom domain:** `pro.culot.be` (wordt ook uit het `CNAME`-bestand gelezen).
-4. **Aangeraden — domein verifiëren**, zodat niemand anders het subdomein kan claimen: *Profiel/Organisatie → Settings → Pages → Add a domain* → `pro.culot.be`. GitHub toont dan een TXT-record: neem dat mee in de DNS-aanvraag.
+3. **Custom domain:** `b2b.culot.be` (wordt ook uit het `CNAME`-bestand gelezen).
+4. **Aangeraden — domein verifiëren**, zodat niemand anders het subdomein kan claimen: *Profiel/Organisatie → Settings → Pages → Add a domain* → `b2b.culot.be`. GitHub toont dan een TXT-record: neem dat mee in de DNS-aanvraag.
 5. Zodra de DNS actief is: vink **Enforce HTTPS** aan. Het certificaat wordt automatisch aangemaakt, wat tot 24u kan duren.
 
 ## Stap 4 — DNS-aanvraag voor Crossmark (klaar om te versturen)
 
 Vul `<GITHUB-USER>` in: de gebruikers- of organisatienaam waaronder de repo staat, in kleine letters. De verificatiecode krijg je uit stap 3.4.
 
-> **Onderwerp:** DNS-records voor subdomein pro.culot.be
+> **Onderwerp:** DNS-records voor subdomein b2b.culot.be
 >
 > Hallo,
 >
-> In opdracht van Louis Culot lanceren we een aparte landingspagina voor professionals op **pro.culot.be**. De pagina wordt door Pro Active gehost; aan de huidige website en de mailconfiguratie verandert niets.
+> In opdracht van Louis Culot lanceren we een aparte landingspagina voor professionals op **b2b.culot.be**. De pagina wordt door Pro Active gehost; aan de huidige website en de mailconfiguratie verandert niets.
 >
 > Kunnen jullie in de DNS-zone van culot.be de volgende records toevoegen?
 >
 > | Type | Naam / host | Waarde | TTL |
 > |---|---|---|---|
-> | CNAME | `pro` | `<GITHUB-USER>.github.io.` | 3600 |
-> | TXT | `_github-pages-challenge-<GITHUB-USER>.pro` | `<VERIFICATIECODE>` | 3600 |
+> | CNAME | `b2b` | `<GITHUB-USER>.github.io.` | 3600 |
+> | TXT | `_github-pages-challenge-<GITHUB-USER>.b2b` | `<VERIFICATIECODE>` | 3600 |
 >
 > Het TXT-record dient enkel om het domein bij GitHub te verifiëren.
 >
@@ -117,7 +117,7 @@ Vul `<GITHUB-USER>` in: de gebruikers- of organisatienaam waaronder de repo staa
 
 In `index.html` → `LC_CONFIG`:
 
-- `GA4_ID`: dezelfde GA4-property als culot.be, zodat bezoekers die doorklikken dezelfde gebruiker blijven. Voeg `culot.be` en `pro.culot.be` toe bij *Admin → Data streams → Configure tag settings → Configure your domains*.
+- `GA4_ID`: dezelfde GA4-property als culot.be, zodat bezoekers die doorklikken dezelfde gebruiker blijven. Voeg `culot.be` en `b2b.culot.be` toe bij *Admin → Data streams → Configure tag settings → Configure your domains*.
 - `ADS_ID` + twee conversielabels: maak in Google Ads (account 164-083-7244) twee conversie-acties aan: **B2B – offerteaanvraag** (primair) en **B2B – kennismaking** (secundair of primair, naargelang de biedstrategie). **Houd ze apart van de B2C-conversies**, anders vervuilen ze de CPA-sturing van de bestaande campagnes.
 
 Events die de pagina stuurt (enkel na cookie-toestemming): `cta_click`, `segment_select`, `form_start`, `generate_lead` (met `lead_type`, `bedrijfstype`, `segment`).
@@ -136,4 +136,4 @@ Events die de pagina stuurt (enkel na cookie-toestemming): `cta_click`, `segment
 - [ ] Testlead in beide modi (offerte + kennismaking), met en zonder bijlage → Sheet, Drive en mail gecontroleerd
 - [ ] Test op iPhone en Android: formulier, sticky CTA, cookiebanner
 - [ ] `robots.txt` → `Allow: /` en `<meta name="robots">` verwijderen in `index.html`
-- [ ] Link vanaf culot.be naar pro.culot.be (footer of menu "Voor professionals"), te vragen aan Crossmark
+- [ ] Link vanaf culot.be naar b2b.culot.be (footer of menu "Voor professionals"), te vragen aan Crossmark

@@ -1,6 +1,6 @@
 /**
  * Louis Culot · B2B-leads
- * Formulier (pro.culot.be) → deze Web App → Google Sheet (+ plannen in Drive) → Make-webhook
+ * Formulier (b2b.culot.be) → deze Web App → Google Sheet (+ plannen in Drive) → Make-webhook
  *
  * Script properties (Project Settings → Script properties):
  *   DRIVE_FOLDER_ID   ID van de Drive-map voor geüploade plannen
