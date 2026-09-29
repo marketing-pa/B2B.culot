@@ -115,14 +115,26 @@ Vul `<GITHUB-USER>` in: de gebruikers- of organisatienaam waaronder de repo staa
 
 ## Stap 5 — Tracking (vóór de campagne start)
 
-In `index.html` → `LC_CONFIG`:
+De pagina gebruikt **dezelfde GTM-container als culot.be** (`GTM-PHFMXML`, in `LC_CONFIG.GTM_ID`). Daar zitten GA4 (`G-17WN7PL9EH`), Google Ads (`AW-655020624`), Meta-pixel, Pinterest en Hotjar in. Geen losse gtag-ID's meer op de pagina: alles loopt via GTM.
 
-- `GA4_ID`: dezelfde GA4-property als culot.be, zodat bezoekers die doorklikken dezelfde gebruiker blijven. Voeg `culot.be` en `b2b.culot.be` toe bij *Admin → Data streams → Configure tag settings → Configure your domains*.
-- `ADS_ID` + twee conversielabels: maak in Google Ads (account 164-083-7244) twee conversie-acties aan: **B2B – offerteaanvraag** (primair) en **B2B – kennismaking** (secundair of primair, naargelang de biedstrategie). **Houd ze apart van de B2C-conversies**, anders vervuilen ze de CPA-sturing van de bestaande campagnes.
+**Cookiekeuze:** verplichte modal bij het eerste bezoek (niet weg te klikken zonder keuze), met *Alles accepteren*, *Alles weigeren* en *Voorkeuren instellen* (analytisch / marketing). Accepteren en weigeren zijn even zichtbaar, zoals de GBA verwacht. Keuze wordt 180 dagen bewaard in `localStorage` (`lc_consent`) en is altijd te wijzigen via "Cookie-instellingen" (formulier + footer). Intrekken herlaadt de pagina, zodat geen tag nog actief blijft.
 
-Events die de pagina stuurt (enkel na cookie-toestemming): `cta_click`, `segment_select`, `form_start`, `generate_lead` (met `lead_type`, `bedrijfstype`, `segment`).
+**Consent Mode v2, basic mode:** `consent default` zet `ad_storage`, `ad_user_data`, `ad_personalization` en `analytics_storage` op `denied` vóór GTM. GTM laadt pas na toestemming voor minstens één categorie, met een `consent update` per categorie (analytisch → `analytics_storage`; marketing → de drie ad-signalen). Advanced mode (cookieloze pings) levert hier niets op: Google modelleert pas conversies vanaf een volume dat deze B2B-campagne niet haalt.
 
-**Consent:** de pagina laadt géén Google-tags vóór toestemming (*basic mode*). Dat is de veiligste keuze in België, maar je verliest de conversies van bezoekers die weigeren. Wil je *advanced* Consent Mode (cookieloze pings, gemodelleerde conversies), dan is dat een bewuste keuze die Culot moet goedkeuren. De gclid wordt **altijd** mee opgeslagen in de Sheet. Zo kun je leads later via *offline conversion import* alsnog aan campagnes koppelen.
+Events in de dataLayer: `lc_consent_update` (met `consent_analytics`, `consent_marketing`), `cta_click` (`cta`), `segment_select` (`segment`), `form_start` (`lead_type`), `generate_lead` (`lead_type` = Offerte/Kennismaking, `bedrijfstype`, `segment`).
+
+### Nog te doen in GTM (blokkerend voor lancering)
+
+1. **Consent op de niet-Google-tags.** Meta-pixel (Custom HTML + alle Meta-eventtags), Pinterest en Hotjar hebben nu géén consent-check en vuren dus zodra GTM laadt, ook op culot.be vóór de keuze. Zet bij elk onder *Geavanceerde instellingen → Toestemmingsinstellingen → Aanvullende toestemming vereist*: Meta en Pinterest → `ad_storage`, Hotjar → `analytics_storage`. Zonder dit lekt een bezoeker die enkel "analytisch" kiest toch naar Meta.
+2. **GA4-configuratietag:** `debug_mode = true` staat live. Verwijderen (anders kan de filter "Developer traffic" al het verkeer uitsluiten).
+3. **B2B-tags**, met trigger *Custom Event* + `Page Hostname` gelijk aan `b2b.culot.be`:
+   - GA4-eventtag `generate_lead` met parameters `lead_type`, `bedrijfstype`, `segment` (dataLayer-variabelen). Markeer als key event.
+   - Twee Google Ads-conversietags in account 164-083-7244: **B2B – offerteaanvraag** (`lead_type` = Offerte, primair) en **B2B – kennismaking** (`lead_type` = Kennismaking). **Apart van de B2C-conversies**, anders vervuilen ze de CPA-sturing van de bestaande campagnes.
+   - Optioneel: `cta_click`, `segment_select`, `form_start` als GA4-events.
+4. GA4: `b2b.culot.be` toevoegen bij *Admin → Data streams → Configure tag settings → Configure your domains* (naast `culot.be`).
+5. Let op: de Meta-pixel vuurt ook op b2b.culot.be, dus professionals komen in de B2C-retargetingpubliek terecht. Sluit hostname `b2b.culot.be` uit in die doelgroepen.
+
+De gclid wordt altijd mee opgeslagen in de Sheet (`sessionStorage` enkel met marketingtoestemming). Voor *offline conversion import* in de EER vraagt Google een geldig `ad_user_data`-signaal: importeer enkel leads die marketing hebben aanvaard, of leg de toestemming vast in het formulier.
 
 ---
 
@@ -134,6 +146,7 @@ Events die de pagina stuurt (enkel na cookie-toestemming): `cta_click`, `segment
 - [ ] Ontvangstadres van leads bij Culot bepaald, en aangepast in Make
 - [ ] **GDPR:** verwerkersovereenkomst Culot ↔ Pro Active (de leads staan in onze Google-omgeving en gaan via Make); privacyverklaring van culot.be vermeldt het subdomein en de verwerkers (Google, Make); bewaartermijn afgesproken (voorstel: 24 maanden, daarna rijen en Drive-mappen verwijderen)
 - [ ] Testlead in beide modi (offerte + kennismaking), met en zonder bijlage → Sheet, Drive en mail gecontroleerd
-- [ ] Test op iPhone en Android: formulier, sticky CTA, cookiebanner
+- [ ] GTM-punten 1 t/m 3 uit Stap 5 gepubliceerd, getest in Tag Assistant (weigeren = geen enkele request naar Google/Meta/Pinterest/Hotjar)
+- [ ] Test op iPhone en Android: formulier, sticky CTA, cookiekeuze
 - [ ] `robots.txt` → `Allow: /` en `<meta name="robots">` verwijderen in `index.html`
 - [ ] Link vanaf culot.be naar b2b.culot.be (footer of menu "Voor professionals"), te vragen aan Crossmark

@@ -20,12 +20,49 @@
 /* ============ CONFIG — enkel hier aanpassen ============ */
 window.LC_CONFIG = {
   FORM_ENDPOINT: "https://script.google.com/macros/s/AKfycbxqk8bZiy8p6SthHQB6kAA_kou8K6grSZeRhHdxLanzaDr5S0Md4VRQiS2z84mFcPpK/exec", // eindigt op /exec
-  GA4_ID: "",            // bv. "G-XXXXXXXXXX" (zelfde property als culot.be)
-  ADS_ID: "",            // bv. "AW-123456789" (Google Ads-tag, niet het accountnummer)
-  ADS_LABEL_PROJECT: "", // conversielabel "B2B – offerteaanvraag"
-  ADS_LABEL_MEET: "",    // conversielabel "B2B – kennismaking"
+  GTM_ID: "GTM-PHFMXML", // zelfde container als culot.be (GA4, Google Ads, Meta, Pinterest, Hotjar)
   MAX_UPLOAD_MB: 10
 };
+
+/* ============ Consent Mode v2 (basic) ============
+   Alles staat op 'denied' tot de bezoeker kiest. GTM laadt pas na toestemming
+   voor minstens één categorie. Keuze wordt 180 dagen bewaard, daarna opnieuw gevraagd. */
+window.dataLayer = window.dataLayer || [];
+function gtag(){ dataLayer.push(arguments); }
+gtag('consent', 'default', {
+  ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+  analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted'
+});
+gtag('set', 'ads_data_redaction', true);
+window.LC_CONSENT = (function(){
+  var KEY = 'lc_consent', VERSION = 2, MAX_AGE = 180 * 864e5, loaded = false, current = null;
+  try { var c = JSON.parse(localStorage.getItem(KEY)); if (c && c.v === VERSION && Date.now() - c.t < MAX_AGE) current = c; } catch (e) {}
+  function loadGtm(){
+    if (loaded || !LC_CONFIG.GTM_ID) return; loaded = true;
+    dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var s = document.createElement('script'); s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtm.js?id=' + LC_CONFIG.GTM_ID;
+    document.head.appendChild(s);
+  }
+  function apply(c){
+    var a = c.a ? 'granted' : 'denied', m = c.m ? 'granted' : 'denied';
+    gtag('consent', 'update', { analytics_storage: a, ad_storage: m, ad_user_data: m, ad_personalization: m });
+    dataLayer.push({ event: 'lc_consent_update', consent_analytics: a, consent_marketing: m });
+    if (c.a || c.m) loadGtm();
+  }
+  if (current) apply(current);
+  return {
+    get: function(){ return current; },
+    save: function(a, m){
+      var prev = current;
+      current = { v: VERSION, a: !!a, m: !!m, t: Date.now() };
+      try { localStorage.setItem(KEY, JSON.stringify(current)); } catch (e) {}
+      /* Toestemming ingetrokken terwijl GTM al draait: herladen zodat geen enkele tag nog actief is */
+      if (loaded && prev && ((prev.a && !a) || (prev.m && !m))) { location.reload(); return; }
+      apply(current);
+    }
+  };
+})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -221,13 +258,27 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:spac
 .mcta{display:none}
 
 
-/* Consent */
-.consent{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:70;max-width:520px;background:var(--paper);color:var(--ink);border:1px solid var(--line);box-shadow:0 8px 30px rgba(0,0,0,.18);padding:20px 22px;font-size:14px;line-height:1.5}
-.consent[hidden]{display:none}
-.consent p{margin:0 0 14px}
-.consent .row{display:flex;gap:10px;flex-wrap:wrap}
-.consent .btn{padding:12px 16px;font-size:14px}
+/* Consent (verplichte keuze) */
+.consent{border:0;padding:0;width:calc(100% - 32px);max-width:560px;max-height:calc(100svh - 32px);overflow:auto;background:var(--paper);color:var(--ink);box-shadow:0 24px 70px rgba(0,0,0,.35);font-size:15px;line-height:1.55}
+.consent::backdrop{background:rgba(20,19,17,.6);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+html:has(.consent[open]){overflow:hidden}
+.consent-in{padding:30px 30px 26px}
+.consent h2{font-size:30px;line-height:1.1;margin-bottom:14px}
+.consent h2:focus{outline:none}
+.consent p{margin:0 0 20px;color:var(--ink-2)}
+.consent p a{color:var(--ink);text-underline-offset:3px}
+.consent-prefs{border-top:1px solid var(--line);margin:0 0 20px}
+.consent-prefs[hidden]{display:none}
+.cp{display:grid;grid-template-columns:20px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.45;color:var(--ink-2);cursor:pointer}
+.cp b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+.cp input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--gold);cursor:pointer}
+.cp input:disabled{cursor:default}
+.consent .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.consent .btn{justify-content:center;padding:15px 16px;font-size:14px}
+.consent .btn[hidden]{display:none}
+.consent .row .btn-ghost{grid-column:1/-1}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--ink)}
 .form-error{display:none;color:#B3261E;font-size:14px;margin-top:14px}
 .form.error .form-error{display:block}
 .form.sending button[type=submit]{opacity:.6;pointer-events:none}
@@ -246,7 +297,10 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:spac
   .top .tel,.tag{display:none}
 }
 @media (max-width:640px){
-  .consent{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  .consent{width:100%;max-width:none;margin:auto auto 0;max-height:92svh}
+  .consent-in{padding:24px 20px calc(20px + env(safe-area-inset-bottom,0px))}
+  .consent h2{font-size:26px}
+  .consent .row{grid-template-columns:1fr}
   body{font-size:16px}
   .wrap{padding:0 20px}
   .pair,.pairs-head{grid-template-columns:1fr;gap:6px}
@@ -535,7 +589,7 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:spac
         <span class="micro" style="margin:0">Antwoord binnen 2 werkdagen</span>
       </div>
       <p class="form-error" role="alert">Er liep iets mis bij het versturen. Probeer opnieuw of bel ons op +32 3 860 70 70.</p>
-      <p class="privacy">We gebruiken uw gegevens enkel om uw aanvraag te beantwoorden. Meer in onze <a href="https://www.culot.be/nl/privacy-policy/">privacyverklaring</a>. <a href="#" id="cookieSettings">Cookie-instellingen</a></p>
+      <p class="privacy">We gebruiken uw gegevens enkel om uw aanvraag te beantwoorden. Meer in onze <a href="https://www.culot.be/nl/privacy-policy/">privacyverklaring</a>. <a href="#" class="js-cookies">Cookie-instellingen</a></p>
       <div class="done" role="status"><h3>Bedankt, we hebben uw aanvraag.</h3><p>Een projectverantwoordelijke neemt binnen 2 werkdagen contact met u op. Dringend? Bel <a href="tel:+3238607070">+32 3 860 70 70</a>.</p></div>
     </form>
   </div>
@@ -545,7 +599,7 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:spac
 <footer class="site">
   <div class="wrap">
     <span>© 2026 Louis Culot · BE 0430 638 428</span>
-    <span><a href="https://www.culot.be/nl/">Voor particulieren</a> · <a href="https://www.culot.be/nl/algemene-voorwaarden/">Algemene voorwaarden</a> · <a href="https://www.culot.be/nl/privacy-policy/">Privacy</a></span>
+    <span><a href="https://www.culot.be/nl/">Voor particulieren</a> · <a href="https://www.culot.be/nl/algemene-voorwaarden/">Algemene voorwaarden</a> · <a href="https://www.culot.be/nl/privacy-policy/">Privacy</a> · <a href="#" class="js-cookies">Cookie-instellingen</a></span>
   </div>
 </footer>
 
@@ -555,43 +609,53 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:spac
 </div>
 
 
-<div class="consent" id="consent" hidden role="dialog" aria-live="polite" aria-label="Cookies">
-  <p>We gebruiken analytische en marketingcookies om te meten hoe deze pagina gebruikt wordt en om onze advertenties te verbeteren. Functionele cookies zijn altijd actief. <a href="https://www.culot.be/nl/cookies/">Meer info</a></p>
-  <div class="row"><button class="btn btn-primary" id="cAccept">Alles accepteren</button><button class="btn btn-ghost" id="cDeny">Weigeren</button></div>
-</div>
+<dialog class="consent" id="consent" closedby="none" aria-labelledby="cTitle" aria-describedby="cText">
+  <div class="consent-in">
+    <h2 id="cTitle" tabindex="-1" autofocus>Even over cookies</h2>
+    <p id="cText">Functionele cookies zijn nodig om deze pagina te laten werken. Met uw toestemming gebruiken we ook analytische cookies, om te meten hoe de pagina gebruikt wordt, en marketingcookies, om onze advertenties te meten en relevanter te maken. U kiest zelf en kunt uw keuze altijd wijzigen via "Cookie-instellingen" onderaan de pagina. <a href="https://www.culot.be/nl/cookies/" target="_blank" rel="noopener">Cookiebeleid</a></p>
+    <div class="consent-prefs" id="cPrefs" hidden>
+      <label class="cp"><input type="checkbox" checked disabled><span><b>Functioneel</b>Altijd actief. Onthoudt onder meer uw cookiekeuze.</span></label>
+      <label class="cp"><input type="checkbox" id="cA"><span><b>Analytisch</b>Google Analytics en Hotjar: hoe bezoekers de pagina gebruiken.</span></label>
+      <label class="cp"><input type="checkbox" id="cM"><span><b>Marketing</b>Google Ads, Meta en Pinterest: advertenties meten en afstemmen op uw interesses.</span></label>
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-primary" id="cAccept">Alles accepteren</button>
+      <button type="button" class="btn btn-primary" id="cDeny">Alles weigeren</button>
+      <button type="button" class="btn btn-ghost" id="cMore">Voorkeuren instellen</button>
+      <button type="button" class="btn btn-ghost" id="cSave" hidden>Bewaar mijn keuze</button>
+    </div>
+  </div>
+</dialog>
 
 <script>
 (function(){
   var C=window.LC_CONFIG||{};
 
-  /* ---------- Consent (basic mode: geen tags vóór toestemming) ---------- */
-  var KEY='lc_consent_v1', loaded=false;
-  function store(v){try{localStorage.setItem(KEY,v)}catch(e){}}
-  function read(){try{return localStorage.getItem(KEY)}catch(e){return null}}
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments)}
-  window.gtag=gtag;
-  gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied'});
-  function loadTags(){
-    if(loaded||!(C.GA4_ID||C.ADS_ID))return; loaded=true;
-    gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});
-    var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+(C.GA4_ID||C.ADS_ID);document.head.appendChild(s);
-    gtag('js',new Date());
-    if(C.GA4_ID)gtag('config',C.GA4_ID);
-    if(C.ADS_ID)gtag('config',C.ADS_ID);
-  }
-  var banner=document.getElementById('consent');
-  var choice=read();
-  if(choice==='granted')loadTags(); else if(!choice) banner.hidden=false;
-  document.getElementById('cAccept').onclick=function(){store('granted');banner.hidden=true;loadTags();};
-  document.getElementById('cDeny').onclick=function(){store('denied');banner.hidden=true;};
-  document.getElementById('cookieSettings').onclick=function(e){e.preventDefault();banner.hidden=false;};
-  function track(name,params){ if(loaded) gtag('event',name,params||{}); }
+  /* ---------- Cookie-keuze (verplicht; logica en GTM-loader staan in <head>) ---------- */
+  var dlg=document.getElementById('consent'), cA=document.getElementById('cA'), cM=document.getElementById('cM'),
+      prefs=document.getElementById('cPrefs'), bMore=document.getElementById('cMore'), bSave=document.getElementById('cSave');
+  function showPrefs(on){ prefs.hidden=!on; bMore.hidden=on; bSave.hidden=!on; }
+  function openConsent(detail){ var c=LC_CONSENT.get(); cA.checked=!!(c&&c.a); cM.checked=!!(c&&c.m); showPrefs(!!detail); if(!dlg.open) dlg.showModal(); }
+  function choose(a,m){ LC_CONSENT.save(a,m); persistAttr(); dlg.close(); }
+  dlg.addEventListener('cancel',function(e){ e.preventDefault(); });              // Esc sluit niet
+  dlg.addEventListener('close',function(){ if(!LC_CONSENT.get()) dlg.showModal(); }); // zonder keuze kan niet
+  document.getElementById('cAccept').onclick=function(){ choose(true,true); };
+  document.getElementById('cDeny').onclick=function(){ choose(false,false); };
+  bMore.onclick=function(){ showPrefs(true); cA.focus(); };
+  bSave.onclick=function(){ choose(cA.checked,cM.checked); };
+  [].forEach.call(document.querySelectorAll('.js-cookies'),function(a){ a.addEventListener('click',function(e){ e.preventDefault(); openConsent(true); }); });
+  if(!LC_CONSENT.get()) openConsent(false);
+
+  /* Events gaan naar de dataLayer; GTM verwerkt ze enkel als het geladen is (= na toestemming) */
+  function track(name,params){ var o={event:name}; for(var k in params||{}) o[k]=params[k]; window.dataLayer.push(o); }
 
   /* ---------- Attributie (UTM / gclid) ---------- */
   var qs=new URLSearchParams(location.search), attr={};
   ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid'].forEach(function(k){ if(qs.get(k)) attr[k]=qs.get(k); });
-  try{ if(Object.keys(attr).length) sessionStorage.setItem('lc_attr',JSON.stringify(attr)); else attr=JSON.parse(sessionStorage.getItem('lc_attr')||'{}'); }catch(e){}
+  if(!Object.keys(attr).length){ try{ attr=JSON.parse(sessionStorage.getItem('lc_attr')||'{}'); }catch(e){} }
+  /* Enkel bewaren over paginaweergaves heen als marketing toegestaan is */
+  function persistAttr(){ var c=LC_CONSENT.get(); try{ if(c&&c.m&&Object.keys(attr).length) sessionStorage.setItem('lc_attr',JSON.stringify(attr)); else if(c&&!c.m) sessionStorage.removeItem('lc_attr'); }catch(e){} }
+  persistAttr();
 
   /* ---------- Tabs ---------- */
   var tabs=[].slice.call(document.querySelectorAll('.seg-tabs [role=tab]')), segment='Keukenbouwer';
@@ -639,9 +703,7 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:spac
       if(!res||!res.ok) throw new Error(res&&res.error||'fout');
       form.classList.remove('sending'); form.classList.add('sent');
       var d=form.querySelector('.done'); d.setAttribute('tabindex','-1'); d.focus();
-      track('generate_lead',{lead_type:data.lead_type,bedrijfstype:data.type,segment:segment});
-      var lbl=mode==='meet'?C.ADS_LABEL_MEET:C.ADS_LABEL_PROJECT;
-      if(C.ADS_ID&&lbl) track('conversion',{send_to:C.ADS_ID+'/'+lbl});
+      track('generate_lead',{lead_type:data.lead_type,bedrijfstype:data.type,segment:segment}); // GTM: B2B-conversie op lead_type
     }).catch(function(){ form.classList.remove('sending'); form.classList.add('error'); });
   });
 })();
